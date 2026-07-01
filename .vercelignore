@@ -1,0 +1,7 @@
+# Files that should never be deployed to Vercel
+Screenshots/
+.claude/
+.git/
+*.bak
+.DS_Store
+**/.DS_Store

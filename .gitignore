@@ -1,0 +1,16 @@
+# OS
+.DS_Store
+**/.DS_Store
+
+# Editor / tooling
+.claude/
+*.bak
+
+# Vercel
+.vercel/
+
+# Node (not required for this static site, but safe to ignore)
+node_modules/
+
+# Local reference material — not part of the deployed site
+Screenshots/
