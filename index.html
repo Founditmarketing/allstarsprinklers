@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<script>document.documentElement.classList.add('js')</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>All Star Sprinkler Systems, Inc. | Premier Irrigation in Pineville & Alexandria, LA</title>
@@ -105,7 +106,7 @@
   .logo small{display:block;font-size:.62rem;font-weight:700;letter-spacing:.12em;color:var(--gray);text-transform:uppercase}
   .logo .stack{line-height:1.05}
   .logo{position:relative;z-index:6;transition:transform .32s var(--ease)}
-  .logo-img{height:88px;width:auto;display:block;filter:drop-shadow(0 6px 14px rgba(12,15,20,.12));transition:height .32s var(--ease)}
+  .logo-img{height:88px;width:auto;display:block;transition:height .32s var(--ease)}
   /* big logo, vertically centered across the whole header (bleeds up over the top bar).
      translateY = half the top-bar height (46/2 ≈ 23px) so its center lands on the header's center */
   .nav .logo{transform:translateY(-23px)}
@@ -212,6 +213,18 @@
   }
   .hero-inner{position:relative;z-index:3;padding:60px 0 96px;width:100%}
   .hero-content{max-width:920px;margin:0 auto;text-align:center;display:flex;flex-direction:column;align-items:center}
+  /* ---- On-load entrance (JS-gated via .js so content is never hidden without JS) ---- */
+  @keyframes pageFade{from{opacity:0}to{opacity:1}}
+  @keyframes riseIn{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:none}}
+  .js header{animation:pageFade .7s var(--ease) both}
+  .js .hero-content > *{opacity:0;animation:riseIn .85s var(--ease) both}
+  .js .hero-content > *:nth-child(1){animation-delay:.12s}
+  .js .hero-content > *:nth-child(2){animation-delay:.25s}
+  .js .hero-content > *:nth-child(3){animation-delay:.38s}
+  .js .hero-content > *:nth-child(4){animation-delay:.51s}
+  @media(prefers-reduced-motion:reduce){
+    .js header,.js .hero-content > *{animation:none;opacity:1}
+  }
   /* minimalist, professional hero eyebrow: a short accent rule + spaced uppercase text */
   .hero-eyebrow{
     display:inline-flex;align-items:center;gap:15px;margin-bottom:22px;
@@ -224,7 +237,7 @@
   }
   .hero h1 .accent{color:var(--green)}
   .hero p.sub{color:rgba(255,255,255,.9);font-size:clamp(1rem,1.6vw,1.22rem);font-weight:500;margin:22px auto 0;max-width:620px}
-  .hero-cta{display:flex;gap:14px;margin-top:34px;flex-wrap:wrap;justify-content:center;animation:floatUp .9s var(--ease) both .2s}
+  .hero-cta{display:flex;gap:14px;margin-top:34px;flex-wrap:wrap;justify-content:center}
   .hero-cta .btn{padding:16px 32px;font-size:1rem}
   @keyframes floatUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
   /* stats now live in the About section (see .about-stats) */
