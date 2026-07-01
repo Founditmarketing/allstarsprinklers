@@ -596,12 +596,14 @@
     .topbar-inner{padding:0 18px;justify-content:flex-end;height:32px}
     .topbar .tb-phone{font-size:.8rem}
     .topbar .tb-link,.topbar .tb-mail,.topbar .tb-sep{display:none}
-    /* compact logo sitting cleanly centered in the nav bar (no top-bar overlap on mobile) */
+    /* short, centered divider on mobile */
+    .topbar::after{left:50%;right:auto;transform:translateX(-50%);width:96px}
+    /* larger logo, perfectly centered in the (unchanged-height) nav bar */
     .nav .logo{transform:none}
-    .logo-img{height:40px;filter:none}
+    .logo-img{height:46px;filter:none}
     /* keep the shrink-on-scroll smaller than the resting sizes on mobile */
     header.scrolled .nav{height:52px}
-    header.scrolled .logo-img{height:36px}
+    header.scrolled .logo-img{height:40px}
     /* full-width Get a Quote button at the bottom of the panel */
     nav.center .nav-menu-cta{display:flex;align-items:center;justify-content:center;gap:8px;
       margin:20px;padding:16px 20px;border:none;border-radius:999px;
