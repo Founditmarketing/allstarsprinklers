@@ -543,6 +543,51 @@
   .reveal{opacity:0;transform:translateY(34px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
   .reveal.in{opacity:1;transform:none}
 
+  /* ============================================================ DESKTOP FLOATING CONTACT */
+  .fab-wrap{position:fixed;right:26px;bottom:26px;z-index:1400;display:flex;flex-direction:column;align-items:flex-end;gap:16px}
+  .fab-toggle{
+    position:relative;width:64px;height:64px;border-radius:50%;border:none;cursor:pointer;color:#fff;
+    background:linear-gradient(150deg,var(--blue),var(--green));box-shadow:0 16px 34px rgba(3,102,254,.42);
+    display:grid;place-items:center;transition:transform .3s var(--ease),box-shadow .3s var(--ease);
+  }
+  .fab-toggle:hover{transform:translateY(-3px) scale(1.05);box-shadow:0 22px 44px rgba(3,102,254,.5)}
+  .fab-toggle svg{width:30px;height:30px;grid-area:1/1;transition:opacity .25s var(--ease),transform .25s var(--ease)}
+  .fab-toggle .ic-close{opacity:0;transform:rotate(-90deg) scale(.5)}
+  .fab-wrap.open .fab-toggle .ic-msg{opacity:0;transform:rotate(90deg) scale(.5)}
+  .fab-wrap.open .fab-toggle .ic-close{opacity:1;transform:none}
+  .fab-toggle::after{content:"";position:absolute;inset:0;border-radius:50%;box-shadow:0 0 0 0 rgba(94,178,62,.55);animation:fabPulse 2.6s infinite}
+  .fab-wrap.open .fab-toggle::after{animation:none}
+  @keyframes fabPulse{0%{box-shadow:0 0 0 0 rgba(94,178,62,.5)}70%{box-shadow:0 0 0 16px rgba(94,178,62,0)}100%{box-shadow:0 0 0 0 rgba(94,178,62,0)}}
+  .fab-panel{
+    width:344px;max-width:calc(100vw - 40px);background:#fff;border-radius:20px;overflow:hidden;
+    border:1px solid var(--line);box-shadow:0 34px 70px rgba(12,15,20,.3);
+    transform-origin:bottom right;opacity:0;visibility:hidden;transform:translateY(20px) scale(.95);
+    transition:opacity .3s var(--ease),transform .3s var(--ease),visibility .3s;
+  }
+  .fab-wrap.open .fab-panel{opacity:1;visibility:visible;transform:none}
+  .fab-head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:18px 20px;
+    color:#fff;background:linear-gradient(150deg,#0e1219,#0c2a72)}
+  .fab-head b{display:block;font-size:1.06rem;font-weight:800}
+  .fab-head span{font-size:.8rem;color:rgba(255,255,255,.7)}
+  .fab-close{background:rgba(255,255,255,.12);border:none;color:#fff;width:32px;height:32px;border-radius:9px;cursor:pointer;display:grid;place-items:center;flex-shrink:0;transition:background .2s}
+  .fab-close:hover{background:rgba(255,255,255,.26)}
+  .fab-close svg{width:18px;height:18px}
+  .fab-body{padding:18px 20px 20px}
+  .fab-call{width:100%;gap:10px}
+  .fab-call svg{width:20px;height:20px}
+  .fab-or{display:flex;align-items:center;gap:12px;margin:14px 0;color:var(--gray);font-size:.72rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase}
+  .fab-or::before,.fab-or::after{content:"";flex:1;height:1px;background:var(--line)}
+  .fab-form{display:flex;flex-direction:column;gap:10px}
+  .fab-form input,.fab-form textarea{
+    width:100%;border:1px solid var(--line);border-radius:11px;padding:12px 14px;font-family:inherit;font-size:.94rem;
+    color:var(--ink);background:var(--soft);transition:border-color .2s,background .2s;resize:vertical;
+  }
+  .fab-form input:focus,.fab-form textarea:focus{outline:none;border-color:var(--blue);background:#fff}
+  .fab-form .btn{width:100%;margin-top:2px}
+
+  /* ============================================================ MOBILE STICKY ACTION BAR */
+  .mobile-bar{display:none}
+
   /* ============================================================ RESPONSIVE */
   @media(max-width:1024px){
     .services-grid{grid-template-columns:repeat(2,1fr)}
@@ -555,6 +600,19 @@
     .nav-cta .btn{display:none}
     .nav{padding:0 16px;position:relative;height:64px}
     body.menu-open{overflow:hidden}
+    /* hide desktop floating button; show sticky action bar */
+    .fab-wrap{display:none}
+    body{padding-bottom:66px}
+    .mobile-bar{
+      display:grid;grid-template-columns:repeat(4,1fr);position:fixed;left:0;right:0;bottom:0;z-index:990;
+      background:#fff;border-top:1px solid var(--line);box-shadow:0 -8px 24px rgba(12,15,20,.1);
+      padding:6px 4px calc(6px + env(safe-area-inset-bottom));
+    }
+    .mobile-bar a{display:flex;flex-direction:column;align-items:center;gap:3px;padding:7px 2px;border-radius:10px;
+      color:var(--ink);font-size:.66rem;font-weight:700;letter-spacing:.02em;transition:background .2s,color .2s}
+    .mobile-bar a svg{width:23px;height:23px;color:var(--blue)}
+    .mobile-bar a.call svg{color:var(--green)}
+    .mobile-bar a:active{background:var(--soft);color:var(--blue)}
     /* services become a swipeable horizontal carousel on mobile */
     .services-grid{
       display:flex;grid-template-columns:none;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;
@@ -1110,6 +1168,53 @@
   <div class="lb-counter" id="lbCounter"></div>
 </div>
 
+<!-- ========================= DESKTOP FLOATING CONTACT ========================= -->
+<div class="fab-wrap" id="fabWrap">
+  <div class="fab-panel" id="fabPanel" role="dialog" aria-label="Contact us">
+    <div class="fab-head">
+      <div><b>Get in touch</b><span>We'll get right back to you</span></div>
+      <button class="fab-close" id="fabClose" aria-label="Close"><svg viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg></button>
+    </div>
+    <div class="fab-body">
+      <a href="tel:13186642328" class="btn btn-green fab-call">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.5.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.2.2 2.4.6 3.5.1.4 0 .8-.2 1l-2.3 2.3Z" fill="currentColor"/></svg>
+        Call Now · 318.664.2328
+      </a>
+      <div class="fab-or"><span>or send a message</span></div>
+      <form class="fab-form" id="fabForm" onsubmit="return fabSubmit(event)">
+        <input type="text" name="name" placeholder="Your name" aria-label="Your name" required>
+        <input type="tel" name="phone" placeholder="Phone number" aria-label="Phone number" required>
+        <textarea name="msg" rows="3" placeholder="How can we help?" aria-label="Message"></textarea>
+        <button type="submit" class="btn btn-blue">Send Message <span class="arrow">→</span></button>
+      </form>
+    </div>
+  </div>
+  <button class="fab-toggle" id="fabToggle" aria-label="Open contact options" aria-expanded="false">
+    <svg class="ic-msg" viewBox="0 0 24 24" fill="none"><path d="M4 5h16c.6 0 1 .4 1 1v10c0 .6-.4 1-1 1H8l-4 4V6c0-.6.4-1 1-1Z" fill="currentColor"/><circle cx="9" cy="11" r="1.3" fill="#fff"/><circle cx="13" cy="11" r="1.3" fill="#fff"/><circle cx="17" cy="11" r="1.3" fill="#fff"/></svg>
+    <svg class="ic-close" viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/></svg>
+  </button>
+</div>
+
+<!-- ========================= MOBILE STICKY ACTION BAR ========================= -->
+<nav class="mobile-bar" id="mobileBar" aria-label="Quick actions">
+  <a class="call" href="tel:13186642328">
+    <svg viewBox="0 0 24 24" fill="none"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.5.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.2.2 2.4.6 3.5.1.4 0 .8-.2 1l-2.3 2.3Z" fill="currentColor"/></svg>
+    <span>Call</span>
+  </a>
+  <a href="#contact">
+    <svg viewBox="0 0 24 24" fill="none"><path d="M4 5h16c.6 0 1 .4 1 1v10c0 .6-.4 1-1 1H8l-4 4V6c0-.6.4-1 1-1Z" fill="currentColor"/></svg>
+    <span>Message</span>
+  </a>
+  <a href="https://www.google.com/maps/dir/?api=1&destination=4402%20Grantham%20Dr%2C%20Pineville%2C%20LA%2071360" target="_blank" rel="noopener">
+    <svg viewBox="0 0 24 24" fill="none"><path d="M21.4 11.3 12.7 2.6a1 1 0 0 0-1.4 0L2.6 11.3a1 1 0 0 0 0 1.4l8.7 8.7a1 1 0 0 0 1.4 0l8.7-8.7a1 1 0 0 0 0-1.4Z" fill="currentColor"/><path d="m10 14 1-3 4-1-1 3-4 1Z" fill="#fff"/></svg>
+    <span>Directions</span>
+  </a>
+  <a href="#services">
+    <svg viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="7" height="7" rx="1.6" fill="currentColor"/><rect x="14" y="3" width="7" height="7" rx="1.6" fill="currentColor"/><rect x="3" y="14" width="7" height="7" rx="1.6" fill="currentColor"/><rect x="14" y="14" width="7" height="7" rx="1.6" fill="currentColor"/></svg>
+    <span>Services</span>
+  </a>
+</nav>
+
 <script>
 /* ============ Sticky header shadow on scroll ============ */
 const header = document.getElementById('header');
@@ -1198,6 +1303,33 @@ megaItems.forEach(it => {
 });
 // reset to the first service when the menu closes
 if (dropParent) dropParent.addEventListener('mouseleave', () => { if (!isMobileNav()) activateMega('0'); });
+
+/* ============ Desktop floating contact button ============ */
+(() => {
+  const wrap = document.getElementById('fabWrap');
+  const toggle = document.getElementById('fabToggle');
+  const close = document.getElementById('fabClose');
+  if (!wrap || !toggle) return;
+  const setOpen = (open) => { wrap.classList.toggle('open', open); toggle.setAttribute('aria-expanded', open); };
+  toggle.addEventListener('click', () => setOpen(!wrap.classList.contains('open')));
+  close.addEventListener('click', () => setOpen(false));
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') setOpen(false); });
+  document.addEventListener('click', (e) => { if (!wrap.contains(e.target)) setOpen(false); });
+})();
+function fabSubmit(e){
+  e.preventDefault();
+  const form = e.target;
+  const btn = form.querySelector('button[type="submit"]');
+  btn.innerHTML = '✓ Message Sent!';
+  btn.style.background = 'var(--green)';
+  setTimeout(() => {
+    alert("Thanks! We've received your message and will call you back shortly.\n\nPrefer to talk now? Call 318.664.2328.");
+    form.reset();
+    btn.innerHTML = 'Send Message <span class="arrow">→</span>';
+    btn.style.background = '';
+  }, 500);
+  return false;
+}
 
 /* ============ Services carousel arrows (mobile) ============ */
 (() => {
