@@ -309,37 +309,53 @@
 
   /* ============================================================ SERVICES */
   .services{padding:clamp(70px,9vw,120px) 0;background:var(--soft)}
-  .services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+  .services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+  /* masculine dark service cards */
   .svc{
-    background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:34px 30px;position:relative;
-    overflow:hidden;transition:transform .4s var(--ease),box-shadow .4s var(--ease),border-color .4s;
+    position:relative;overflow:hidden;border-radius:16px;padding:34px 30px 30px;color:#fff;
+    background:linear-gradient(158deg,#1b2231 0%,#0e1219 100%);border:1px solid rgba(255,255,255,.08);
+    display:flex;flex-direction:column;
+    transition:transform .4s var(--ease),box-shadow .4s var(--ease),border-color .4s;
   }
   .svc::before{
-    content:"";position:absolute;left:0;top:0;height:100%;width:5px;background:linear-gradient(var(--blue),var(--green));
-    transform:scaleY(0);transform-origin:top;transition:transform .4s var(--ease);
+    content:"";position:absolute;left:0;top:0;height:4px;width:100%;
+    background:linear-gradient(90deg,var(--blue),var(--green));transform:scaleX(0);transform-origin:left;
+    transition:transform .45s var(--ease);
   }
-  .svc:hover{transform:translateY(-12px);box-shadow:var(--shadow-lg);border-color:transparent}
-  .svc:hover::before{transform:scaleY(1)}
+  .svc::after{
+    content:"";position:absolute;right:-45px;top:-45px;width:160px;height:160px;border-radius:50%;
+    background:radial-gradient(circle,rgba(3,102,254,.22),transparent 70%);opacity:0;transition:opacity .45s;pointer-events:none;
+  }
+  .svc:hover{transform:translateY(-10px);border-color:rgba(3,102,254,.5);box-shadow:0 26px 60px rgba(0,0,0,.5)}
+  .svc:hover::before{transform:scaleX(1)}
+  .svc:hover::after{opacity:1}
+  .svc .num{
+    position:absolute;top:22px;right:26px;font-family:var(--display);font-weight:400;font-size:2.5rem;line-height:1;
+    color:rgba(255,255,255,.07);transition:color .4s;
+  }
+  .svc:hover .num{color:rgba(94,178,62,.22)}
   .svc .icon{
-    width:64px;height:64px;border-radius:16px;background:rgba(3,102,254,.1);color:var(--blue);
-    display:grid;place-items:center;margin-bottom:22px;transition:transform .4s var(--ease),background .4s,color .4s;
+    width:62px;height:62px;border-radius:14px;display:grid;place-items:center;margin-bottom:22px;flex-shrink:0;
+    background:linear-gradient(150deg,var(--blue),var(--green));color:#fff;box-shadow:0 12px 24px rgba(3,102,254,.3);
+    transition:transform .4s var(--ease);
   }
-  .svc .icon svg{width:32px;height:32px}
-  .svc:hover .icon{background:var(--blue);color:#fff;transform:rotate(-6deg) scale(1.08)}
-  .svc .num{position:absolute;top:24px;right:26px;font-size:2.6rem;font-weight:900;color:var(--line);transition:color .4s}
-  .svc:hover .num{color:rgba(94,178,62,.35)}
-  .svc h3{font-size:1.22rem;margin-bottom:10px}
-  .svc p{color:var(--gray);font-size:.95rem}
-  .svc .more{margin-top:18px;display:inline-flex;align-items:center;gap:7px;font-weight:800;color:var(--green);font-size:.9rem;opacity:0;transform:translateY(6px);transition:.35s var(--ease)}
-  .svc:hover .more{opacity:1;transform:translateY(0)}
-  .svc.feature{background:linear-gradient(150deg,var(--blue),#1d74ff);color:#fff;border-color:transparent}
-  .svc.feature::before{display:none}
-  .svc.feature h3{color:#fff}
-  .svc.feature p{color:rgba(255,255,255,.88)}
-  .svc.feature .num{color:rgba(255,255,255,.18)}
-  .svc.feature .icon{background:rgba(255,255,255,.16);color:#fff}
-  .svc.feature:hover .icon{background:#fff;color:var(--blue)}
-  .svc.feature .more{color:#cdeebc;opacity:1;transform:none}
+  .svc .icon svg{width:30px;height:30px}
+  .svc:hover .icon{transform:translateY(-3px) rotate(-5deg) scale(1.07)}
+  .svc h3{font-size:1.16rem;margin-bottom:10px;color:#fff}
+  .svc p{color:rgba(255,255,255,.6);font-size:.94rem;flex:1}
+  .svc .more{margin-top:18px;display:inline-flex;align-items:center;gap:8px;font-weight:800;color:#82db61;font-size:.9rem;letter-spacing:.02em;transition:gap .25s var(--ease)}
+  .svc:hover .more{gap:13px}
+  /* CTA card — same dark base, green button, subtle green edge */
+  .svc-cta{border-color:rgba(94,178,62,.35);justify-content:center}
+  .svc-cta .btn{align-self:flex-start;margin-top:18px}
+  /* horizontal-carousel arrows (mobile only) */
+  .svc-controls{display:none;justify-content:center;gap:14px;margin-top:26px}
+  .svc-arrow{
+    width:52px;height:52px;border-radius:50%;border:1px solid var(--line);background:#fff;cursor:pointer;
+    display:grid;place-items:center;color:var(--black);box-shadow:var(--shadow-sm);transition:transform .2s,background .2s,color .2s;
+  }
+  .svc-arrow:hover{background:var(--blue);color:#fff;transform:translateY(-2px)}
+  .svc-arrow svg{width:24px;height:24px}
 
   /* ============================================================ WHY CHOOSE / ACCORDION */
   .why{padding:clamp(70px,9vw,120px) 0}
@@ -543,6 +559,14 @@
     .nav-cta .btn{display:none}
     .nav{padding:0 16px;position:relative;height:64px}
     body.menu-open{overflow:hidden}
+    /* services become a swipeable horizontal carousel on mobile */
+    .services-grid{
+      display:flex;grid-template-columns:none;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;
+      -webkit-overflow-scrolling:touch;padding-bottom:10px;scrollbar-width:none;
+    }
+    .services-grid::-webkit-scrollbar{display:none}
+    .svc{flex:0 0 84%;scroll-snap-align:center}
+    .svc-controls{display:flex}
 
     /* ---------- Slide-out mobile menu ---------- */
     .nav-overlay{display:block;position:fixed;inset:0;z-index:1500;background:rgba(8,12,20,.5);
@@ -851,7 +875,7 @@
         <p>Highlight architecture and greenery with elegant, energy-efficient lighting that extends your outdoor hours.</p>
         <a href="#contact" class="more">Learn more →</a>
       </article>
-      <article class="svc feature reveal" id="svc-trenchless">
+      <article class="svc reveal" id="svc-trenchless">
         <span class="num">04</span>
         <span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M12 2c-.6 0-1 .4-1.2.9C9 8.5 4 10.5 4 15.5 4 19.6 7.6 23 12 23s8-3.4 8-7.5C20 10.5 15 8.5 13.2 2.9 13 2.4 12.6 2 12 2Z" fill="currentColor"/><path d="M15 15.5a3 3 0 0 1-3 3" stroke="#0366fe" stroke-width="1.8" stroke-linecap="round"/></svg></span>
         <h3>Irrigation Installation — Trenchless</h3>
@@ -865,12 +889,16 @@
         <p>Leaks, broken heads, controller issues, coverage gaps — we diagnose fast and restore your system to peak efficiency.</p>
         <a href="#contact" class="more">Learn more →</a>
       </article>
-      <article class="svc reveal" style="display:flex;flex-direction:column;justify-content:center;align-items:flex-start;background:linear-gradient(150deg,#5eb23e,#76c95a);border-color:transparent;color:#fff">
-        <span class="icon" aria-hidden="true" style="background:rgba(255,255,255,.2);color:#fff"><svg viewBox="0 0 24 24" fill="none"><path d="M12 2v20M2 12h20" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg></span>
-        <h3 style="color:#fff">Need Something Else?</h3>
-        <p style="color:rgba(255,255,255,.9)">Tell us about your property and we'll build a custom plan that fits.</p>
-        <a href="#contact" class="btn btn-ghost" style="margin-top:16px;border-color:#fff">Get a Free Quote</a>
+      <article class="svc svc-cta reveal">
+        <span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M12 2v20M2 12h20" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/></svg></span>
+        <h3>Need Something Else?</h3>
+        <p>Tell us about your property and we'll build a custom plan that fits.</p>
+        <a href="#contact" class="btn btn-green">Get a Free Quote <span class="arrow">→</span></a>
       </article>
+    </div>
+    <div class="svc-controls" aria-hidden="true">
+      <button class="svc-arrow" data-dir="-1" aria-label="Previous service"><svg viewBox="0 0 24 24" fill="none"><path d="m15 6-6 6 6 6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      <button class="svc-arrow" data-dir="1" aria-label="Next service"><svg viewBox="0 0 24 24" fill="none"><path d="m9 6 6 6-6 6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
     </div>
   </div>
 </section>
@@ -1170,6 +1198,17 @@ megaItems.forEach(it => {
 });
 // reset to the first service when the menu closes
 if (dropParent) dropParent.addEventListener('mouseleave', () => { if (!isMobileNav()) activateMega('0'); });
+
+/* ============ Services carousel arrows (mobile) ============ */
+(() => {
+  const grid = document.querySelector('.services-grid');
+  if (!grid) return;
+  document.querySelectorAll('.svc-arrow').forEach(btn => btn.addEventListener('click', () => {
+    const card = grid.querySelector('.svc');
+    const step = card ? card.getBoundingClientRect().width + 16 : grid.clientWidth * 0.85;
+    grid.scrollBy({ left: step * (+btn.dataset.dir), behavior: 'smooth' });
+  }));
+})();
 
 /* ============ Seamless infinite marquee ============ */
 const track = document.getElementById('marquee');
