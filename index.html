@@ -246,7 +246,7 @@
   /* ============================================================ TRUST BANNER */
   .trust-wrap{position:relative;z-index:6}
   .trust{
-    max-width:1180px;margin:-42px auto 0;border-radius:20px;padding:20px 0;color:#fff;
+    max-width:min(1560px,calc(100% - 48px));margin:-42px auto 0;border-radius:20px;padding:20px 0;color:#fff;
     background:linear-gradient(105deg,#0a63f7 0%,#0246c6 52%,#0a63f7 100%);
     box-shadow:0 30px 60px -14px rgba(3,102,254,.5),0 10px 22px rgba(12,15,20,.14),
       inset 0 1px 0 rgba(255,255,255,.3),inset 0 -3px 8px rgba(0,0,0,.18);
@@ -402,15 +402,11 @@
   .gal img{width:100%;height:100%;object-fit:cover;transition:transform .7s var(--ease)}
   .gal:hover img{transform:scale(1.12)}
   .gal::after{
-    content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(3,102,254,.55),transparent 55%);
+    content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(3,102,254,.28),transparent 55%);
     opacity:0;transition:opacity .4s;
   }
   .gal:hover::after{opacity:1}
-  .gal .cap{
-    position:absolute;left:18px;bottom:14px;z-index:2;color:#fff;font-weight:800;font-size:1rem;
-    transform:translateY(14px);opacity:0;transition:.4s var(--ease);letter-spacing:.01em;
-  }
-  .gal:hover .cap{transform:translateY(0);opacity:1}
+  .gal .cap{display:none}
   @media(prefers-reduced-motion:reduce){.gal-row{animation:none}}
   /* ---------- Lightbox ---------- */
   .lightbox{
@@ -501,24 +497,24 @@
 
   /* ============================================================ CTA */
   /* full-width dark CTA (uses the shared .section-dark gradient) */
-  .cta{padding:clamp(70px,9vw,120px) 0;overflow:hidden;background:var(--soft)}
-  .cta-inner{position:relative;z-index:2;display:grid;grid-template-columns:1.3fr 1fr;gap:48px;align-items:center}
-  .cta-inner h2{color:var(--black);font-size:clamp(1.9rem,3.6vw,2.8rem);margin-bottom:16px}
-  .cta-inner p{color:var(--gray);font-size:1.08rem;max-width:520px}
-  .cta-contact{display:flex;flex-direction:column;gap:16px}
-  .cta-contact a{
-    display:flex;align-items:center;gap:16px;background:#fff;border:1px solid var(--line);
-    border-radius:16px;padding:18px 22px;box-shadow:var(--shadow-sm);transition:transform .3s var(--ease),box-shadow .3s var(--ease);
+  /* direct call-to-action with a faint photo backdrop under a white overlay */
+  .cta{
+    position:relative;overflow:hidden;padding:clamp(84px,11vw,140px) 0;text-align:center;
+    background:linear-gradient(rgba(255,255,255,.9),rgba(255,255,255,.93)),url('images/9.jpg') center/cover no-repeat;
   }
-  .cta-contact a:hover{transform:translateX(6px);box-shadow:var(--shadow-md)}
-  .cta-contact a .ic{width:52px;height:52px;border-radius:13px;background:var(--soft);display:grid;place-items:center;flex-shrink:0}
-  .cta-contact a .ic svg{width:26px;height:26px}
-  .cta-contact a.phone .ic{background:rgba(94,178,62,.12)}
-  .cta-contact a.phone .ic svg{color:var(--green)}
-  .cta-contact a.mail .ic{background:rgba(3,102,254,.1)}
-  .cta-contact a.mail .ic svg{color:var(--blue)}
-  .cta-contact a small{display:block;color:var(--gray);font-size:.74rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase}
-  .cta-contact a b{font-size:1.15rem;font-weight:800;color:var(--black);word-break:break-word}
+  .cta-inner{position:relative;z-index:2;max-width:780px;margin:0 auto;display:flex;flex-direction:column;align-items:center}
+  .cta-inner .eyebrow{margin-bottom:6px}
+  .cta-inner h2{color:var(--black);font-size:clamp(2.1rem,4.6vw,3.2rem);line-height:1.04;margin:14px 0 16px}
+  .cta-inner p{color:var(--gray);font-size:1.12rem;max-width:580px}
+  .cta-actions{display:flex;flex-wrap:wrap;justify-content:center;gap:16px;margin-top:30px}
+  .cta-actions .btn{gap:11px}
+  .cta-actions .btn svg{width:20px;height:20px}
+  .btn-lg{padding:18px 34px;font-size:1.02rem}
+  .btn-dark{background:var(--black);color:#fff;box-shadow:0 10px 24px rgba(12,15,20,.22)}
+  .btn-dark:hover{background:#000;transform:translateY(-3px);box-shadow:0 16px 34px rgba(12,15,20,.3)}
+  .cta-trust{display:flex;flex-wrap:wrap;justify-content:center;gap:12px 28px;margin-top:36px}
+  .cta-trust span{display:inline-flex;align-items:center;gap:8px;font-weight:700;font-size:.86rem;color:var(--ink)}
+  .cta-trust svg{width:18px;height:18px;color:var(--green);flex-shrink:0}
 
   /* ============================================================ FOOTER */
   footer{background:var(--black);color:#fff;padding:70px 0 0}
@@ -641,7 +637,8 @@
     .about-grid{grid-template-columns:1fr;gap:40px}
     .about-feats{grid-template-columns:1fr 1fr}
     .about-media .floatcard{right:14px}
-    .cta-inner{grid-template-columns:1fr;gap:32px}
+    .cta-actions{flex-direction:column;width:100%;max-width:340px}
+    .cta-actions .btn{width:100%}
     .loc-grid{grid-template-columns:1fr}
     .foot-grid{grid-template-columns:1fr 1fr;gap:34px 30px}
     .foot-brand{grid-column:1/-1}
@@ -797,7 +794,7 @@
 </section>
 
 <!-- ========================= TRUST BANNER ========================= -->
-<div class="wrap trust-wrap">
+<div class="trust-wrap">
   <div class="trust">
     <div class="marquee" aria-label="Trust highlights">
       <div class="marquee-track" id="marquee">
@@ -1016,20 +1013,23 @@
 <section class="cta" id="contact">
   <div class="wrap">
     <div class="cta-inner reveal">
-      <div class="cta-copy">
-        <span class="eyebrow">Ready When You Are</span>
-        <h2>Let us help you achieve a lush, beautiful landscape that stands out in every season.</h2>
-        <p>Get in touch today for a free consultation and personalized quote — and let's bring your property to life.</p>
+      <span class="eyebrow">Ready When You Are</span>
+      <h2>Let's build a lush, beautiful landscape that stands out in every season.</h2>
+      <p>Get in touch today for a free consultation and personalized quote — and let's bring your property to life.</p>
+      <div class="cta-actions">
+        <a href="tel:13186642328" class="btn btn-green btn-lg">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.5.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.2.2 2.4.6 3.5.1.4 0 .8-.2 1l-2.3 2.3Z" fill="currentColor"/></svg>
+          Call 318.664.2328
+        </a>
+        <a href="mailto:allstarsprinklersystems@gmail.com" class="btn btn-dark btn-lg">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2.5" fill="currentColor"/><path d="m4 7 8 6 8-6" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Email Us
+        </a>
       </div>
-      <div class="cta-contact">
-          <a class="phone" href="tel:13186642328">
-            <span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.5.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.2.2 2.4.6 3.5.1.4 0 .8-.2 1l-2.3 2.3Z" fill="currentColor"/></svg></span>
-            <span><small>Call Us</small><b>318.664.2328</b></span>
-          </a>
-          <a class="mail" href="mailto:allstarsprinklersystems@gmail.com">
-            <span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><rect x="3" y="5" width="18" height="14" rx="2.5" fill="currentColor"/><path d="m4 7 8 6 8-6" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-            <span><small>Email Us</small><b>allstarsprinklersystems@gmail.com</b></span>
-          </a>
+      <div class="cta-trust">
+        <span><svg viewBox="0 0 24 24" fill="none"><path d="M12 2 4 6v6c0 5 3.4 8.5 8 10 4.6-1.5 8-5 8-10V6l-8-4Z" fill="currentColor"/></svg> Licensed &amp; Insured</span>
+        <span><svg viewBox="0 0 24 24" fill="none"><path d="M12 2C7.6 2 4 5.6 4 10c0 5.5 7 11.5 7.3 11.8.4.3.9.3 1.3 0C13 21.5 20 15.5 20 10c0-4.4-3.6-8-8-8Z" fill="currentColor"/></svg> Pineville &amp; Alexandria</span>
+        <span><svg viewBox="0 0 24 24" fill="none"><path d="m5 12 4 4 10-10" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg> Residential &amp; Commercial</span>
       </div>
     </div>
   </div>
