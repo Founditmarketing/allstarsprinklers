@@ -637,6 +637,32 @@
   /* ============================================================ MOBILE STICKY ACTION BAR */
   .mobile-bar{display:none}
 
+  /* ---------- Slide-up contact sheet (opened by the mobile "Message" button) ---------- */
+  .sheet{position:fixed;inset:0;z-index:3000;visibility:hidden}
+  .sheet.open{visibility:visible}
+  .sheet-backdrop{position:absolute;inset:0;background:rgba(8,12,20,.55);opacity:0;transition:opacity .35s var(--ease)}
+  .sheet.open .sheet-backdrop{opacity:1}
+  .sheet-panel{
+    position:absolute;left:0;right:0;bottom:0;background:#fff;border-radius:24px 24px 0 0;
+    padding:14px 22px calc(26px + env(safe-area-inset-bottom));max-height:92vh;overflow-y:auto;
+    transform:translateY(100%);transition:transform .42s cubic-bezier(.4,0,.2,1);
+    box-shadow:0 -20px 50px rgba(12,15,20,.28);
+  }
+  .sheet.open .sheet-panel{transform:translateY(0)}
+  .sheet-grip{display:block;width:44px;height:5px;border-radius:5px;background:var(--line);margin:2px auto 14px}
+  .sheet-close{position:absolute;top:14px;right:16px;width:38px;height:38px;border:none;border-radius:11px;background:var(--soft);color:var(--black);cursor:pointer;display:grid;place-items:center}
+  .sheet-close svg{width:20px;height:20px}
+  .sheet-panel h3{font-size:1.5rem;color:var(--black)}
+  .sheet-panel > p{color:var(--gray);font-size:.95rem;margin:6px 0 16px}
+  .sheet-call{width:100%;gap:10px}
+  .sheet-call svg{width:20px;height:20px}
+  .sheet-or{display:flex;align-items:center;gap:12px;margin:16px 0;color:var(--gray);font-size:.72rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase}
+  .sheet-or::before,.sheet-or::after{content:"";flex:1;height:1px;background:var(--line)}
+  .sheet-form{display:flex;flex-direction:column;gap:10px}
+  .sheet-form input,.sheet-form textarea{width:100%;border:1px solid var(--line);border-radius:11px;padding:13px 15px;font-family:inherit;font-size:1rem;color:var(--ink);background:var(--soft);resize:vertical}
+  .sheet-form input:focus,.sheet-form textarea:focus{outline:none;border-color:var(--blue);background:#fff}
+  .sheet-form .btn{width:100%;margin-top:2px}
+
   /* ============================================================ RESPONSIVE */
   @media(max-width:1024px){
     .services-grid{grid-template-columns:repeat(2,1fr)}
@@ -671,6 +697,12 @@
     .svc{flex:0 0 84%;scroll-snap-align:center}
     /* carousel cards show immediately (no vertical reveal offset that caused phantom scroll) */
     .services-grid .svc{opacity:1;transform:none}
+    /* Mobile: no 3D flip (iOS Safari doesn't reliably honor backface-visibility, which
+       let the rotated back face bleed through mirrored). Show the image front only and
+       tap navigates to the service page. */
+    .svc-flip .svc-inner{transform:none !important;transform-style:flat}
+    .svc-flip .svc-back{display:none}
+    .svc-flip .svc-front{cursor:pointer}
     .svc-controls{display:flex}
 
     /* ---------- Slide-out mobile menu ---------- */

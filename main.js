@@ -161,14 +161,57 @@ function fabSubmit(e){
   return false;
 }
 
-/* ============ Service card flip (tap to flip on mobile/touch) ============ */
+/* ============ Mobile "Message" → slide-up contact sheet ============ */
+(() => {
+  // build the sheet once and append to the page
+  const sheet = document.createElement('div');
+  sheet.className = 'sheet';
+  sheet.id = 'contactSheet';
+  sheet.setAttribute('aria-hidden', 'true');
+  sheet.innerHTML = `
+    <div class="sheet-backdrop" data-close></div>
+    <div class="sheet-panel" role="dialog" aria-label="Send us a message" aria-modal="true">
+      <span class="sheet-grip" aria-hidden="true"></span>
+      <button class="sheet-close" data-close aria-label="Close"><svg viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6 6 18" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg></button>
+      <h3>Send us a message</h3>
+      <p>Tell us about your project and we'll get right back to you.</p>
+      <a href="tel:13186642328" class="btn btn-green sheet-call">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.5.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.2.2 2.4.6 3.5.1.4 0 .8-.2 1l-2.3 2.3Z" fill="currentColor"/></svg>
+        Call 318.664.2328
+      </a>
+      <div class="sheet-or"><span>or send a message</span></div>
+      <form class="sheet-form" onsubmit="return fabSubmit(event)">
+        <input type="text" name="name" placeholder="Your name" aria-label="Your name" required>
+        <input type="tel" name="phone" placeholder="Phone number" aria-label="Phone number" required>
+        <textarea name="msg" rows="3" placeholder="How can we help?" aria-label="Message"></textarea>
+        <button type="submit" class="btn btn-blue">Send Message <span class="arrow">→</span></button>
+      </form>
+    </div>`;
+  document.body.appendChild(sheet);
+
+  const open = () => { sheet.classList.add('open'); sheet.setAttribute('aria-hidden', 'false'); document.body.classList.add('menu-open'); };
+  const close = () => { sheet.classList.remove('open'); sheet.setAttribute('aria-hidden', 'true'); document.body.classList.remove('menu-open'); };
+  sheet.addEventListener('click', (e) => { if (e.target.closest('[data-close]')) close(); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') close(); });
+
+  // wire the sticky footer "Message" button to open the sheet instead of navigating
+  document.querySelectorAll('.mobile-bar a').forEach(a => {
+    const label = a.querySelector('span')?.textContent.trim().toLowerCase();
+    if (label === 'message') {
+      a.addEventListener('click', (e) => { e.preventDefault(); open(); });
+    }
+  });
+})();
+
+/* ============ Service cards: flip on desktop hover; tap opens the service page on mobile ============ */
 (() => {
   const isTouch = () => window.matchMedia('(max-width:860px)').matches;
   document.querySelectorAll('.svc-flip').forEach(card => {
     card.addEventListener('click', (e) => {
-      if (!isTouch()) return;            // desktop flips on hover
-      if (e.target.closest('a')) return; // let links on the back work
-      card.classList.toggle('flipped');
+      if (!isTouch()) return;             // desktop uses hover flip
+      if (e.target.closest('a')) return;  // real links still work
+      const link = card.querySelector('.more');
+      if (link) window.location.href = link.getAttribute('href');
     });
   });
 })();
