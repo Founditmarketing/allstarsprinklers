@@ -209,9 +209,8 @@ function fabSubmit(e){
   document.querySelectorAll('.svc-flip').forEach(card => {
     card.addEventListener('click', (e) => {
       if (!isTouch()) return;             // desktop uses hover flip
-      if (e.target.closest('a')) return;  // real links still work
-      const link = card.querySelector('.more');
-      if (link) window.location.href = link.getAttribute('href');
+      if (e.target.closest('a')) return;  // the back's "View Service" button navigates
+      card.classList.toggle('flipped');
     });
   });
 })();

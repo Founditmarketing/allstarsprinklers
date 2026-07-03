@@ -328,13 +328,16 @@
   .svc{height:392px;perspective:1500px;background:none;border:none;padding:0;overflow:visible}
   .svc-inner{position:relative;width:100%;height:100%;transition:transform .75s var(--ease);transform-style:preserve-3d}
   .svc-flip:hover .svc-inner,.svc-flip.flipped .svc-inner{transform:rotateY(180deg)}
+  /* NOTE: no overflow:hidden on the faces — that combo with backface-visibility breaks
+     the 3D flip on iOS Safari (back shows through mirrored). Corners are rounded on the
+     individual layers instead. */
   .svc-front,.svc-back{
-    position:absolute;inset:0;border-radius:16px;overflow:hidden;border:1px solid rgba(255,255,255,.09);
+    position:absolute;inset:0;border-radius:16px;border:1px solid rgba(255,255,255,.09);
     -webkit-backface-visibility:hidden;backface-visibility:hidden;
   }
-  .svc-front{background:#0e1219}
-  .svc-front img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-  .svc-front::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(8,12,20,.94) 6%,rgba(8,12,20,.15) 55%,rgba(8,12,20,.4) 100%)}
+  .svc-front{background:#0e1219;border-radius:16px}
+  .svc-front img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:16px}
+  .svc-front::after{content:"";position:absolute;inset:0;border-radius:16px;background:linear-gradient(0deg,rgba(8,12,20,.94) 6%,rgba(8,12,20,.15) 55%,rgba(8,12,20,.4) 100%)}
   .svc-front-body{position:absolute;left:0;right:0;bottom:0;z-index:2;padding:26px}
   .svc-fnum{font-family:var(--display);font-weight:400;font-size:1.5rem;line-height:1;color:var(--green)}
   .svc-front-body h3{color:#fff;font-size:1.24rem;margin:6px 0 12px;text-shadow:0 2px 14px rgba(0,0,0,.5)}
@@ -347,13 +350,13 @@
   }
   .svc-ico svg{width:28px;height:28px}
   /* back face */
-  .svc-back{transform:rotateY(180deg);display:flex;flex-direction:column;padding:30px 28px;color:#fff;
+  .svc-back{transform:rotateY(180deg);display:flex;flex-direction:column;padding:30px 28px;color:#fff;border-radius:16px;
     background:linear-gradient(158deg,#1b2231 0%,#0e1219 100%)}
-  .svc-back::before{content:"";position:absolute;left:0;top:0;height:4px;width:100%;background:linear-gradient(90deg,var(--blue),var(--green))}
+  .svc-back::before{content:"";position:absolute;left:0;top:0;height:4px;width:100%;border-radius:16px 16px 0 0;background:linear-gradient(90deg,var(--blue),var(--green))}
   .svc-back .svc-ico{margin-bottom:18px}
   .svc-back h3{color:#fff;font-size:1.12rem;margin-bottom:10px}
   .svc-back p{color:rgba(255,255,255,.62);font-size:.9rem;flex:1}
-  .svc-back .more{margin-top:16px;display:inline-flex;align-items:center;gap:8px;font-weight:800;color:#82db61;font-size:.9rem;letter-spacing:.02em}
+  .svc-back .btn{align-self:flex-start;margin-top:18px;padding:11px 22px;font-size:.88rem}
   /* CTA card — dark, non-flip */
   .svc-cta{
     height:392px;border-radius:16px;padding:34px 30px;display:flex;flex-direction:column;justify-content:center;color:#fff;
@@ -697,12 +700,7 @@
     .svc{flex:0 0 84%;scroll-snap-align:center}
     /* carousel cards show immediately (no vertical reveal offset that caused phantom scroll) */
     .services-grid .svc{opacity:1;transform:none}
-    /* Mobile: no 3D flip (iOS Safari doesn't reliably honor backface-visibility, which
-       let the rotated back face bleed through mirrored). Show the image front only and
-       tap navigates to the service page. */
-    .svc-flip .svc-inner{transform:none !important;transform-style:flat}
-    .svc-flip .svc-back{display:none}
-    .svc-flip .svc-front{cursor:pointer}
+    .svc-flip{cursor:pointer}   /* tap to flip on mobile */
     .svc-controls{display:flex}
 
     /* ---------- Slide-out mobile menu ---------- */
