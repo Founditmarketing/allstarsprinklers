@@ -196,7 +196,7 @@
   .nav-cta .btn{padding:10px 26px;font-size:.92rem}
   .nav-menu-cta{display:none}
   /* mobile slide-out menu pieces (hidden on desktop) */
-  .nav-overlay,.nav-panel-head,.nav-close{display:none}
+  .nav-overlay,.nav-panel-head,.nav-close,.nav-panel-contact{display:none}
   .nav-phone{display:flex;align-items:center;gap:8px;font-weight:800;color:var(--black);font-size:.95rem}
   .nav-phone svg{width:18px;height:18px;color:var(--blue)}
   .burger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:8px}
@@ -532,8 +532,9 @@
   .section-dark .acc-q .plus::before,.section-dark .acc-q .plus::after{background:#fff}
   .section-dark .acc-a-inner{color:rgba(255,255,255,.66)}
   /* Locations */
-  .section-dark .loc{background:rgba(255,255,255,.045);border-color:rgba(255,255,255,.12)}
-  .section-dark .loc:hover{background:rgba(3,102,254,.16);border-color:rgba(3,102,254,.55);box-shadow:0 26px 55px rgba(0,0,0,.45)}
+  .section-dark .loc{background:rgba(255,255,255,.045);border-color:rgba(255,255,255,.12);
+    transition:transform .4s var(--ease),box-shadow .4s var(--ease),background .4s var(--ease),border-color .4s var(--ease),opacity .6s var(--ease)}
+  .section-dark .loc:hover{background:rgba(94,178,62,.28);border-color:var(--green);box-shadow:0 26px 55px rgba(0,0,0,.45)}
   .section-dark .loc-map{background:rgba(255,255,255,.05)}
   .section-dark .loc-body .pin{background:rgba(3,102,254,.22);color:#8ab4ff}
   .section-dark .loc-body address{color:rgba(255,255,255,.66)}
@@ -705,7 +706,10 @@
       display:grid;grid-template-columns:repeat(4,1fr);position:fixed;left:0;right:0;bottom:0;z-index:990;
       background:#fff;border-top:1px solid var(--line);box-shadow:0 -8px 24px rgba(12,15,20,.1);
       padding:6px 4px calc(6px + env(safe-area-inset-bottom));
+      transition:transform .35s var(--ease);
     }
+    /* on the home page the bar stays tucked away until you scroll past the hero */
+    .mobile-bar.is-hidden{transform:translateY(120%)}
     .mobile-bar a{display:flex;flex-direction:column;align-items:center;gap:3px;padding:7px 2px;border-radius:10px;
       color:var(--ink);font-size:.66rem;font-weight:700;letter-spacing:.02em;transition:background .2s,color .2s}
     .mobile-bar a svg{width:23px;height:23px;color:var(--blue)}
@@ -794,6 +798,13 @@
       background:var(--green);color:#fff;font-weight:800;font-size:1.02rem;letter-spacing:.02em;
       box-shadow:0 12px 24px rgba(94,178,62,.34)}
     nav.center .nav-menu-cta:hover{background:var(--green-dark)}
+    /* contact info at the bottom of the slide-out menu */
+    nav.center .nav-panel-contact{display:flex;flex-direction:column;padding:4px 20px calc(18px + env(safe-area-inset-bottom));margin-top:auto;border-top:1px solid var(--line)}
+    nav.center .nav-panel-contact a,
+    nav.center .nav-panel-contact .npc-addr{display:flex;align-items:center;gap:9px;padding:9px 0;border-bottom:none;font-size:.8rem;font-weight:700;color:var(--ink);white-space:normal;overflow-wrap:anywhere;word-break:break-word;min-width:0}
+    nav.center .nav-panel-contact a:hover{color:var(--blue)}
+    nav.center .nav-panel-contact svg{width:16px;height:16px;color:var(--blue);flex-shrink:0}
+    nav.center .nav-panel-contact .npc-addr{font-weight:600;color:var(--gray);font-size:.78rem;line-height:1.3}
     /* image sits below the text content on mobile: text -> image -> stats */
     .about-split{grid-template-columns:1fr;grid-template-rows:none;min-height:0}
     .about-copy{order:1;grid-column:1;grid-row:auto;align-self:auto;padding:clamp(40px,9vw,60px) 20px 0}
@@ -813,6 +824,9 @@
     /* keep the hero eyebrow on a single line */
     .hero-eyebrow{font-size:.58rem;letter-spacing:.1em;gap:9px;white-space:nowrap}
     .hero-eyebrow::before,.hero-eyebrow::after{width:22px}
+    /* mobile: smaller main headline, slightly larger rotating word */
+    .hero h1{font-size:2rem}
+    .hero h1 .cycle-word{font-size:2.7rem}
     .hero-cta{width:100%;flex-direction:column;align-items:stretch}
     .hero-cta .btn{width:100%;justify-content:center}
     .trust{margin-top:-30px;border-radius:0}

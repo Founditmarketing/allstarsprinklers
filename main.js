@@ -345,5 +345,16 @@ counters.forEach(c => cio.observe(c));
   ['touchstart', 'click'].forEach(evt => window.addEventListener(evt, tryPlay, { once: true, passive: true }));
 })();
 
+/* ============ Mobile action bar: on the home page, reveal only after the hero ============ */
+(() => {
+  const bar = document.getElementById('mobileBar');
+  const hero = document.querySelector('.hero');   // the big video hero only exists on the home page
+  if (!bar || !hero) return;                       // other pages: bar stays visible from the start
+  const update = () => bar.classList.toggle('is-hidden', window.scrollY < hero.offsetHeight - 80);
+  window.addEventListener('scroll', update, { passive: true });
+  window.addEventListener('resize', update, { passive: true });
+  update();
+})();
+
 /* ============ Footer year ============ */
 document.getElementById('year').textContent = new Date().getFullYear();
