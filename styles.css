@@ -213,6 +213,11 @@
   .hero-bg{position:absolute;inset:0;z-index:0}
   .hero-bg img{width:100%;height:100%;object-fit:cover;transform:scale(1.06);animation:slowzoom 18s ease-in-out infinite alternate}
   .hero-bg video{width:100%;height:100%;object-fit:cover;display:block}
+  /* desktop: scale the video from its top-left so the bottom-right corner (which carries
+     the AI-video watermark) is pushed past the hero edge and clipped by overflow:hidden */
+  @media(min-width:861px){
+    .hero-bg video{transform:scale(1.18);transform-origin:top left}
+  }
   @keyframes slowzoom{to{transform:scale(1.14)}}
   .hero-overlay{
     position:absolute;inset:0;z-index:1;
