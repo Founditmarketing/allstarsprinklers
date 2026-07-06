@@ -331,5 +331,19 @@ const cio = new IntersectionObserver((entries) => {
 }, {threshold:.5});
 counters.forEach(c => cio.observe(c));
 
+/* ============ Hero background video: ensure muted inline autoplay ============ */
+(() => {
+  const v = document.querySelector('.hero-video');
+  if (!v) return;
+  v.muted = true;              // required for autoplay; set as property too
+  v.setAttribute('muted', '');
+  v.playsInline = true;
+  const tryPlay = () => { const p = v.play(); if (p && p.catch) p.catch(() => {}); };
+  tryPlay();
+  // retry once the tab/page becomes visible or on first interaction (mobile power-saving)
+  document.addEventListener('visibilitychange', () => { if (!document.hidden) tryPlay(); });
+  ['touchstart', 'click'].forEach(evt => window.addEventListener(evt, tryPlay, { once: true, passive: true }));
+})();
+
 /* ============ Footer year ============ */
 document.getElementById('year').textContent = new Date().getFullYear();
