@@ -188,7 +188,10 @@
   .mega .mega-card .mm-cap b{color:#fff;font-size:1.14rem;font-weight:800}
   .mega .mega-card .mm-cap span{color:#cdeebc;font-size:.86rem;font-weight:700}
   .nav-cta{display:flex;align-items:center;gap:14px;flex-shrink:0}
-  .nav-mini{display:none}
+  /* Facebook icon — shown in the header on desktop and mobile */
+  .nav-mini{display:grid;place-items:center;flex-shrink:0;color:var(--blue);transition:color .2s,transform .2s}
+  .nav-mini svg{width:23px;height:23px}
+  .nav-mini:hover{color:var(--blue-dark);transform:translateY(-2px)}
   /* skinnier header CTA; vertical centering keeps even top/bottom spacing when the header shrinks on scroll */
   .nav-cta .btn{padding:10px 26px;font-size:.92rem}
   .nav-menu-cta{display:none}
@@ -326,7 +329,7 @@
   .services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
   /* ---- flip service cards (image front, details back) ---- */
   .svc{height:392px;perspective:1500px;background:none;border:none;padding:0;overflow:visible}
-  .svc-inner{position:relative;width:100%;height:100%;transition:transform .75s var(--ease);transform-style:preserve-3d}
+  .svc-inner{position:relative;width:100%;height:100%;transition:transform .7s ease-in-out;transform-style:preserve-3d}
   .svc-flip:hover .svc-inner,.svc-flip.flipped .svc-inner{transform:rotateY(180deg)}
   /* NOTE: no overflow:hidden on the faces — that combo with backface-visibility breaks
      the 3D flip on iOS Safari (back shows through mirrored). Corners are rounded on the
@@ -335,8 +338,8 @@
     position:absolute;inset:0;border-radius:16px;border:1px solid rgba(255,255,255,.09);
     -webkit-backface-visibility:hidden;backface-visibility:hidden;
     /* belt-and-suspenders for Safari (which mis-handles backface-visibility): the two
-       faces swap opacity at the flip's midpoint, so only one is ever visible */
-    transition:opacity 0s linear .38s;
+       faces swap opacity exactly at the flip's 90° point (half of the .7s ease-in-out) */
+    transition:opacity 0s linear .35s;
   }
   .svc-front{background:#0e1219;border-radius:16px;opacity:1}
   .svc-flip:hover .svc-front,.svc-flip.flipped .svc-front{opacity:0}
