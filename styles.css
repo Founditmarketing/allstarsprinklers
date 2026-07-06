@@ -592,7 +592,7 @@
   @keyframes plLogoIn{0%{opacity:0;transform:translateY(40px)}100%{opacity:1;transform:translateY(0)}}
   /* progress bar that fills as the screen holds */
   .preloader-bar{position:relative;width:min(58vw,220px);height:4px;border-radius:4px;background:rgba(255,255,255,.14);overflow:hidden;z-index:2}
-  .preloader-bar span{display:block;height:100%;border-radius:4px;background:var(--green);transform:scaleX(0);transform-origin:left;animation:plFill 1.7s var(--ease) .35s forwards}
+  .preloader-bar span{display:block;height:100%;border-radius:4px;background:rgba(255,255,255,.55);transform:scaleX(0);transform-origin:left;animation:plFill 1.7s var(--ease) .35s forwards}
   @keyframes plFill{0%{transform:scaleX(0)}100%{transform:scaleX(1)}}
   @media(prefers-reduced-motion:reduce){
     .preloader-logo{animation:none;opacity:1}
@@ -680,6 +680,8 @@
     .nav-phone{display:none}
     .burger{display:flex}
     .nav-cta .btn{display:none}
+    /* trust banner spans full width (touches both edges) with square corners on mobile */
+    .trust{max-width:none;margin-left:0;margin-right:0;border-radius:0}
     .nav{padding:0 16px;position:relative;height:64px}
     body.menu-open{overflow:hidden}
     /* hide desktop floating button; show sticky action bar */
@@ -799,7 +801,7 @@
     .hero-eyebrow::before,.hero-eyebrow::after{width:22px}
     .hero-cta{width:100%;flex-direction:column;align-items:stretch}
     .hero-cta .btn{width:100%;justify-content:center}
-    .trust{margin-top:-30px;border-radius:16px}
+    .trust{margin-top:-30px;border-radius:0}
     .marquee-track .item{padding:0 26px;font-size:.92rem;gap:11px}
     .services-grid{grid-template-columns:1fr}
     .gal{width:78vw;height:200px}
