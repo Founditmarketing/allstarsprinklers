@@ -602,9 +602,9 @@
   .preloader.done{opacity:0;visibility:hidden}
   .preloader-logo{
     width:min(66vw,340px);position:relative;z-index:2;
-    animation:plLogoIn 1.4s var(--ease) both;
+    animation:plLogoIn 2s ease-in-out both;
   }
-  @keyframes plLogoIn{0%{opacity:0;transform:translateY(40px)}100%{opacity:1;transform:translateY(0)}}
+  @keyframes plLogoIn{0%{opacity:0}100%{opacity:1}}
   /* progress bar that fills as the screen holds */
   .preloader-bar{position:relative;width:min(58vw,220px);height:4px;border-radius:4px;background:rgba(255,255,255,.14);overflow:hidden;z-index:2}
   .preloader-bar span{display:block;height:100%;border-radius:4px;background:rgba(255,255,255,.55);transform:scaleX(0);transform-origin:left;animation:plFill 1.7s var(--ease) .35s forwards}
